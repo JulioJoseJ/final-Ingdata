@@ -1,9 +1,11 @@
 # Respuestas — Ventas diarias con control de actualidad
 
-## 1. ¿Por qué usar `_loaded_at` y no `fecha_venta`?
+## 1. ¿Por qué usar `_loaded_at` y no `fecha_venta` para este control?
 
-`fecha_venta` dice cuándo ocurrió la venta en el negocio; `_loaded_at` dice cuándo llegó el dato a raw. El riesgo que queremos detectar es que la **carga** se haya detenido o retrasado, así que hay que medir la última llegada (`max(_loaded_at)`). Con `fecha_venta` el control fallaría con datos sanos (una venta antigua cargada hoy, un día sin ventas) y pasaría con datos viejos si la última venta registrada fuera reciente aunque la carga lleve días detenida. En este ejercicio los datos de negocio son siempre los mismos (enero de 2026): por `fecha_venta` todos los escenarios se verían igual de "viejos"; solo `_loaded_at` distingue el escenario actualizado (2 h), el de advertencia (18 h) y el desactualizado (30 h).
+Fecha_venta dice cuando ocurrio la venta mientras que loaded_at dice cuando llego ese dato. Para el control se quiere determinar si se detiene la carga o se retrasa por lo que se mide la ultima llegada de los datos. Con fecha_venta el control podría fallar aunque la carga esté al día (por ejemplo, si llega hoy una venta antigua) o pasar aunque la carga esté detenida, si la última venta registrada es reciente . Por lo que se usa loaded_at.
+
+Evidencia de esto son las ventas en enero 2026 son las mismas pero freshness distingue por 2h y falla con 30h
 
 ## 2. ¿Por qué las pruebas de integridad no garantizan actualidad?
 
-Las pruebas `unique`, `not_null`, `valores_ventas` y las del resumen validan la forma y la coherencia de las filas que existen: que no haya duplicados, nulos ni valores inválidos. No miran el reloj ni comparan con el momento actual. Una tabla cargada hace 30 horas sigue teniendo ids únicos y campos completos, así que `dbt build` termina en verde y reconstruye un resumen desactualizado. Por eso la actualidad se comprueba aparte con `dbt source freshness` y, como `dbt build` no la ejecuta, va como tarea previa en Airflow: con error (más de 24 h) la construcción queda `upstream_failed` y se conserva el resumen anterior.
+Porque los datos viejos pueden pasar las pruebas de integridad pese a ser viejos, actualidad se debe comparar por fecha de carga o freshness antes de asegurar integridad algo que puede ser saltado en un flujo. Por defecto dbt no ejecuta freshness a no ser especificado en un parametro. Evidencia de esto es el escenario desactualizado que habian datos validos pero freshnes detecto ~30h haciendo up_stream failed para conservar el resumen
