@@ -2,7 +2,6 @@ etapa,archivo_sql,id_ejecucion,archivo_resultado
 inicial,consultas/verificacion_tercer_dia.sql,d6900928-ba3c-4dac-abc9-3236bb0521e4,resultados/inicial/total_registros.csv
 inicial,consultas/intentos_por_fecha_estado.sql,2c34d765-1814-4393-a7ce-cafe37aa3ac0,resultados/inicial/intentos_por_fecha_estado.csv
 inicial,consultas/duracion_promedio_2026-10-02.sql,69bc46e1-5a25-44f1-acdf-e415277b3b8f,resultados/inicial/duracion_promedio_2026-10-02.csv
-inicial,consultas/porcentaje_exito_por_fecha_ciudad.sql,15b17fdf-ad42-472b-8fa3-55474b4fb750,resultados/inicial/porcentaje_exito_por_fecha_ciudad.csv
 inicial,consultas/porcentaje_exito_por_fecha_ciudad.sql,df8b1375-465a-4c93-800d-a18ef4ac6f35,resultados/inicial/porcentaje_exito_por_fecha_ciudad.csv
 final,consultas/verificacion_tercer_dia.sql,3950c621-4ed6-4a14-8883-6dedbee3259f,resultados/final/verificacion_tercer_dia.csv
 final,consultas/verificacion_tercer_dia.sql,37f03a76-5348-4f70-8e15-298ed708703c,resultados/final/total_registros.csv
