@@ -1,5 +1,7 @@
 # Examen final — Entregas con partition projection (S3 + Glue + Athena + Terraform)
 
+> Este repositorio contiene los dos puntos del examen final: **Punto 1** (esta raíz: S3 + Glue + Athena con Terraform) y **Punto 2** en [`punto2_ventas/`](punto2_ventas/) (dbt source freshness + Airflow).
+
 Una empresa de mensajería sube un CSV diario con los intentos de entrega. Los archivos quedan en S3 bajo
 `entregas/fecha=yyyy-MM-dd/`, una tabla externa de Glue Data Catalog con **partition projection** describe su esquema
 y sus ubicaciones, y Athena los consulta y escribe sus resultados en `resultados-athena/` del mismo bucket.

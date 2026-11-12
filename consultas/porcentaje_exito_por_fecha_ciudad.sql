@@ -1,5 +1,5 @@
 -- Porcentaje de entregas exitosas por fecha y ciudad: 100 x exitosas / total de intentos del grupo
--- CAST a DOUBLE evita la división entera; el resultado se redondea y se presenta con dos decimales
+-- CAST a DOUBLE evita la división entera y el resultado se redondea y se presenta con dos decimales
 SELECT
     fecha,
     ciudad,

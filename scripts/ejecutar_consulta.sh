@@ -11,7 +11,7 @@ WORKGROUP=$(terraform -chdir=infraestructura output -raw workgroup_athena)
 BASE=$(terraform -chdir=infraestructura output -raw base_datos_glue)
 
 # Toma la sentencia N (separador ;) y quita las líneas de comentario
-SQL=$(awk -v n="$N" 'BEGIN{RS=";"} NR==n{print}' "$ARCHIVO_SQL" | grep -v '^[[:space:]]*--' | sed '/^[[:space:]]*$/d')
+SQL=$(awk -v n="$N" 'BEGIN{RS=";"} NR==n{print}' "$ARCHIVO_SQL" | { grep -v '^[[:space:]]*--' || true; } | sed '/^[[:space:]]*$/d')
 [ -n "$SQL" ] || { echo "No se encontró la sentencia $N en $ARCHIVO_SQL" >&2; exit 1; }
 echo ">> $ARCHIVO_SQL (sentencia $N) en workgroup $WORKGROUP"
 
