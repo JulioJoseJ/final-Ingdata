@@ -1,0 +1,15 @@
+# Terraform: estado, planes y carpeta local
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+*.tfvars
+!ejemplo.tfvars
+
+# Credenciales
+.env
+*.pem
+*accessKeys*.csv
+*credentials*
+.aws/
